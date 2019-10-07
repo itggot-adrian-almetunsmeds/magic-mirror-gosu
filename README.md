@@ -1,2 +1,2 @@
 # magic-mirror-gosu
-A Magic Mirror created using Gosu as the front end library.
+A Magic Mirror front-end created in Ruby using Gosu.
