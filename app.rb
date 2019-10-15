@@ -21,25 +21,24 @@ class MirrorWindow < Gosu::Window
 
     @scale_x = 1.4
     @scale_y = 1.4
-    
-    @width_offsets = []
-    @width_offsets << (@font.text_width("<b>#{TimeComponent.new.time}</b>")*@scale_x)
-    @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
-      " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}")*@scale_x)
-    p @width_offsets
 
+    @width_offsets = []
+    @width_offsets << (@font.text_width("<b>#{TimeComponent.new.time}</b>") * @scale_x)
+    @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
+      " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
+    p @width_offsets
   end
-  
+
   def update; end
-  
+
   def draw
-    @font.draw_markup("<b>#{TimeComponent.new.time}</b>", (@window_width - @width_offsets[0] - @margin), @margin, 1, scale_x = @scale_x, scale_y = @scale_y)
+    @font.draw_markup("<b>#{TimeComponent.new.time}</b>", (@window_width - @width_offsets[0] - @margin),
+                      @margin, 1, scale_x = @scale_x, scale_y = @scale_y)
     @font.draw_markup("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}",
-      (@window_width - @width_offsets[1] - @margin), 60, 1, scale_x = @scale_x, scale_y = @scale_y)
-    end
+                      (@window_width - @width_offsets[1] - @margin), 60, 1, scale_x = @scale_x, scale_y = @scale_y)
   end
-  
-  window = MirrorWindow.new('en')
-  window.show
-  
+end
+
+window = MirrorWindow.new('en')
+window.show
