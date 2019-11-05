@@ -9,7 +9,7 @@ class MirrorWindow < Gosu::Window
   def initialize(language)
     # TODO: Make this url configurable
     # ie. by using a config file or user input
-    @server_url = 'localhost:4567'
+    @server_url = 'localhost:9292'
     temp = Screen.screen_resolution
     @window_width = temp[0].to_i
     @window_height = temp[1].to_i
@@ -26,7 +26,7 @@ class MirrorWindow < Gosu::Window
     @width_offsets << (@font.text_width("<b>#{TimeComponent.new.time}</b>") * @scale_x)
     @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
-    p @width_offsets
+    # p @width_offsets
   end
 
   def update; end
