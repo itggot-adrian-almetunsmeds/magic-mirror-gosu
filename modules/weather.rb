@@ -8,24 +8,24 @@
 
 # läs dat i array med nyckeln :message
 
-require 'faye'
-require 'faye/websocket'
 require 'eventmachine'
 require 'mechanize'
-
+require 'websocket-client-simple'
 # Tries to establish a ws connection
 #
 # cookie - String containing 'rack.session=xyz'
 def ws_establish(cookie)
-  EM.run do
-    hedaders = { headers: { 'Cookie' => cookie } }
-    p hedaders
+    hedaders = { cookie: cookie }
     p '_______________-'
-    # Refer to this https://www.rubydoc.info/github/faye/faye-websocket-ruby/file/README.md
-    # for setting up this
-    # TODO: FIXME: THIS IS NOT DONE YET.
-    ws = Faye::WebSocket::Client.new('ws://localhost:9292/', nil, hedaders)
+    p hedaders[:cookie]
+    p '_______________-'
 
+    # TODO: Websocket connection has to be run using async
+    # 
+    # The websocket connection has to be established using async in order
+    # for it to continue running after establishing a connection once the gosu
+    # draw method has been ran.
+    ws = WebSocket::Client::Simple.connect 'ws://localhost:9292/', options = {headers: hedaders}
     ws.on :open do |_event|
       p '-----------------------------'
       p 'connection open'
@@ -41,7 +41,6 @@ def ws_establish(cookie)
       p 'connection closed'
       p '-----------------------------'
     end
-  end
 end
 
 # Uses Mechanize gem to simulate a browser
