@@ -2,12 +2,14 @@
 
 require 'gosu'
 Dir['modules/**/*.rb'].sort.each do |f|
+  p f
   require_relative f
 end
 
 class MirrorWindow < Gosu::Window
   def initialize(language)
     # TODO: Make this url configurable
+    #
     # ie. by using a config file or user input
     @server_url = 'localhost:9292'
     temp = Screen.screen_resolution
@@ -15,7 +17,7 @@ class MirrorWindow < Gosu::Window
     @window_height = temp[1].to_i
     super(@window_width, @window_height)
     @font = Gosu::Font.new(self, Gosu.default_font_name, 20)
-    Translation.new(language, @server_url)
+    @translation = Translation.new(language, @server_url)
 
     @margin = 20
 
@@ -26,6 +28,7 @@ class MirrorWindow < Gosu::Window
     @width_offsets << (@font.text_width("<b>#{TimeComponent.new.time}</b>") * @scale_x)
     @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
+    Websocket.perform_async
     # p @width_offsets
   end
 
