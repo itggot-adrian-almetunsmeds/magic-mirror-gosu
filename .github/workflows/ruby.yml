@@ -1,0 +1,16 @@
+name: Linting
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  rubocop_check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Getting files from GitHub
+      uses: actions/checkout@v1
+    - name: Rubocop Linter
+      uses: andrewmcodes/rubocop-linter-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
