@@ -8,7 +8,7 @@ end
 
 class MirrorWindow < Gosu::Window
   def initialize(language)
-    # TODO [$5dd08c3f9396ae000c795553]: Make this url configurable
+    # TODO [#4]: Make this url configurable
     #
     # ie. by using a config file or user input
     @server_url = 'localhost:9292'

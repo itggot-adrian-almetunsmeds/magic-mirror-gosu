@@ -26,7 +26,7 @@
 #     p hedaders[:cookie]
 #     p '_______________-'
 
-#     # TODO [$5dd08c3f9396ae000c795555]: Websocket connection is not recognised
+#     # TODO [#6]: Websocket connection is not recognised
 #     #
 #     # After a connection has been made as indicated here
 #     # the Backend Server have not identified there being a connection
