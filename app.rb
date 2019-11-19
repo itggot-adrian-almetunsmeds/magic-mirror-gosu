@@ -28,7 +28,10 @@ class MirrorWindow < Gosu::Window
     @width_offsets << (@font.text_width("<b>#{TimeComponent.new.time}</b>") * @scale_x)
     @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
-    Websocket.perform_async
+    
+    @weatherdata = Weather.new
+    @number_of_weather_data_entries = 5
+      # Websocket.perform_async
     # p @width_offsets
   end
 
@@ -40,7 +43,11 @@ class MirrorWindow < Gosu::Window
     @font.draw_markup("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}",
                       (@window_width - @width_offsets[1] - @margin), 60, 1, scale_x = @scale_x, scale_y = @scale_y)
-  end
+
+      @number_of_weather_data_entries.times do |i| 
+        @font.draw_markup(@weatherdata.temp?(i), 0, i*30, 1, scale_x = @scale_x, scale_y = @scale_y)
+      end
+    end
 end
 
 window = MirrorWindow.new('en')

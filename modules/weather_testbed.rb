@@ -1,7 +1,7 @@
 require 'json'
 
 
-class Qweqxe
+class Weather
     
     def initialize
         
@@ -9,43 +9,43 @@ class Qweqxe
         rawdata = File.readlines('modules/weather.txt').first
         @data = JSON.parse(rawdata)
 
-        p @data[0]
+        # p @data[0]
 
     end
 
-    def current_temp?
+    def temp?(time)
 
-        @data[0]["temp"]
+        @data[time]["temp"].gsub(' Cel', '')
         
     end
 
-    def self.current_wind_speed?
+    def wind_speed?(time)
 
-        @data[0]["wind_speed"]
-
-    end
-
-    def self.current_humidity?
-
-        @data[0]["humidity"]
+        @data[time]["wind_speed"]
 
     end
 
-    def self.current_thunder_chance?
+    def humidity?(time)
 
-        @data[0]["thunder"]
-
-    end
-
-    def self.current_max_gust_speed?
-
-        @data[0]["wind_gust"]
+        @data[time]["humidity"]
 
     end
 
-    def self.current_symbol?
+    def thunder_chance?(time)
 
-        @data[0]["symbol"]
+        @data[time]["thunder"]
+
+    end
+
+    def max_gust_speed?(time)
+
+        @data[time]["wind_gust"]
+
+    end
+
+    def symbol?(time)
+
+        @data[time]["symbol"]
 
     end
 
