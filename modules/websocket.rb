@@ -12,6 +12,7 @@ require 'eventmachine'
 require 'mechanize'
 require 'sucker_punch'
 require 'websocket-client-simple'
+require 'faye/websocket'
 require_relative 'async.rb'
 
 # Hanldes all Websocket connections
@@ -21,21 +22,24 @@ class Websocket
   #
   # cookie - String containing 'rack.session=xyz'
   def ws_establish(cookie)
-    hedaders = { cookie: cookie }
-    p '_______________-'
-    p hedaders[:cookie]
-    p '_______________-'
+    # hedaders = { cookie: cookie }
+    # p '_______________-'
+    # p hedaders[:cookie]
+    # p '_______________-'
 
     # TODO [$5dd08c3f9396ae000c795555]: Websocket connection is not recognised
     #
     # After a connection has been made as indicated here
     # the Backend Server have not identified there being a connection
     # causing no data to be transmitted back to ``` ws.on :message ```
-    ws = WebSocket::Client::Simple.connect 'ws://localhost:9292/', options = { headers: hedaders }
+    ws = WebSocket::Client::Simple.connect 'ws://localhost:9292/socket', headers: { Cookie: cookie }
+    # ws = Faye::WebSocket::Client.new 'ws://localhost:9292/', nil, headers
     ws.on :open do |_event|
       p '-----------------------------'
       p 'connection open'
       p '-----------------------------'
+      token = File.read('token.txt')
+      ws.send(token)
     end
 
     ws.on :message do |msg|
@@ -62,9 +66,12 @@ class Websocket
         login.name = 'admin'
         login.password = 'admin'
       end.submit
+
       cookie = page.header['set-cookie']
-      # Async.quue(Weather, ws_establish, cookie.split(';').first)
-      ws_establish(cookie.split(';').first)
-    end
+      p cookie
+    #   # Async.quue(Weather, ws_establish, cookie.split(';').first)
+    ws_establish(cookie)
+  end
+    # end
   end
 end
