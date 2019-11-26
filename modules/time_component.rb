@@ -2,8 +2,11 @@
 
 require 'json'
 
+# Handles timeComponent
 class TimeComponent
   attr_reader :time, :date
+
+  # Initializes a new TimeComponent
   def initialize
     @translations = JSON.parse(File.read('translations.json'))['time']
     data = Time.now.to_s[0..9].split('-')
@@ -11,6 +14,11 @@ class TimeComponent
     @date = [data[0], month(data[1].to_i), data[2]]
   end
 
+  # Returns the current month based on value
+  #
+  # value - Integer (number of month)
+  #
+  # Returns a string containing a month
   def month(value)
     case value
     when 1

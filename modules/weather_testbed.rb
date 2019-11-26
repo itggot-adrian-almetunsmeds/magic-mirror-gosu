@@ -1,52 +1,37 @@
+# frozen_string_literal: true
+
 require 'json'
 
+class Weather # rubocop:disable Style/Documentation
+  def initialize
+    # get data
+    rawdata = File.readlines('modules/weather.txt').first
+    @data = JSON.parse(rawdata)
 
-class Weather
-    
-    def initialize
-        
-        # get data
-        rawdata = File.readlines('modules/weather.txt').first
-        @data = JSON.parse(rawdata)
+    # p @data[0]
+  end
 
-        # p @data[0]
+  def temp?(time)
+    @data[time]['temp'].gsub(' Cel', '')
+  end
 
-    end
+  def wind_speed?(time)
+    @data[time]['wind_speed']
+  end
 
-    def temp?(time)
+  def humidity?(time)
+    @data[time]['humidity']
+  end
 
-        @data[time]["temp"].gsub(' Cel', '')
-        
-    end
+  def thunder_chance?(time)
+    @data[time]['thunder']
+  end
 
-    def wind_speed?(time)
+  def max_gust_speed?(time)
+    @data[time]['wind_gust']
+  end
 
-        @data[time]["wind_speed"]
-
-    end
-
-    def humidity?(time)
-
-        @data[time]["humidity"]
-
-    end
-
-    def thunder_chance?(time)
-
-        @data[time]["thunder"]
-
-    end
-
-    def max_gust_speed?(time)
-
-        @data[time]["wind_gust"]
-
-    end
-
-    def symbol?(time)
-
-        @data[time]["symbol"]
-
-    end
-
+  def symbol?(time)
+    @data[time]['symbol']
+  end
 end
