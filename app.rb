@@ -9,7 +9,7 @@ end
 # Acts as the main property of the magic mirror frontend
 class MirrorWindow < Gosu::Window
   def initialize(language) # rubocop:disable Metrics/AbcSize
-    # TODO: [#4]: Make this url configurable
+    # TODO [$5ddd83cab192e2000806eab3]: [#4]: Make this url configurable
     #
     # ie. by using a config file or user input
     @server_url = 'localhost:9292'
