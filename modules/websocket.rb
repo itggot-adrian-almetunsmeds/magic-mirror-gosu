@@ -1,12 +1,12 @@
-# frozen_string_literal: true
+# # frozen_string_literal: true
 
-# Faye::WebSocket.new
+# # Faye::WebSocket.new
 
-# ws.on(:open/:close/:message)
+# # ws.on(:open/:close/:message)
 
-# kolla :channel
+# # kolla :channel
 
-# läs dat i array med nyckeln :message
+# # läs dat i array med nyckeln :message
 
 require 'eventmachine'
 require 'mechanize'
@@ -21,19 +21,8 @@ class Websocket
   # Tries to establish a ws connection
   #
   # cookie - String containing 'rack.session=xyz'
-  def ws_establish(cookie)
-    # hedaders = { cookie: cookie }
-    # p '_______________-'
-    # p hedaders[:cookie]
-    # p '_______________-'
-
-    # TODO [$5dd08c3f9396ae000c795555]: Websocket connection is not recognised
-    #
-    # After a connection has been made as indicated here
-    # the Backend Server have not identified there being a connection
-    # causing no data to be transmitted back to ``` ws.on :message ```
-    ws = WebSocket::Client::Simple.connect 'ws://localhost:9292/socket', headers: { Cookie: cookie }
-    # ws = Faye::WebSocket::Client.new 'ws://localhost:9292/', nil, headers
+  def ws_establish()
+    ws = WebSocket::Client::Simple.connect 'ws://localhost:9292/socket'
     ws.on :open do |_event|
       p '-----------------------------'
       p 'connection open'
@@ -42,36 +31,22 @@ class Websocket
       ws.send(token)
     end
 
-    ws.on :message do |msg|
-      p msg
-    end
+#     ws.on :message do |msg|
+#       p msg
+#     end
 
-    ws.on :close do |_event|
-      p '-----------------------------'
-      p 'connection closed'
-      p '-----------------------------'
-    end
-  end
+#     ws.on :close do |_event|
+#       p '-----------------------------'
+#       p 'connection closed'
+#       p '-----------------------------'
+#     end
+#   end
 
-  def perform
-    # Uses Mechanize gem to simulate a browser
-    a = Mechanize.new do |agent|
-      agent.user_agent_alias = 'Mac Safari'
-    end
+#   def perform
+#     # Uses Mechanize gem to simulate a browser
+#     a = Mechanize.new do |agent|
+#       agent.user_agent_alias = 'Mac Safari'
+#     end
 
-    # Connects to the server and signs in using the given credentials
-    # Then retrives the rack cookie for authentication in ws handshake
-    a.get('http://localhost:9292/login') do |page|
-      res = page.form_with(action: '/login') do |login|
-        login.name = 'admin'
-        login.password = 'admin'
-      end.submit
 
-      cookie = page.header['set-cookie']
-      p cookie
-    #   # Async.quue(Weather, ws_establish, cookie.split(';').first)
-    ws_establish(cookie)
-  end
-    # end
-  end
-end
+ws_establish()
