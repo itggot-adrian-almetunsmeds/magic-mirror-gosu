@@ -30,7 +30,7 @@ class MirrorWindow < Gosu::Window
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
     
     @weatherdata = Weather.new
-    @number_of_weather_data_entries = 5
+    @number_of_weather_entries = 4
       # Websocket.perform_async
     # p @width_offsets
   end
@@ -44,8 +44,13 @@ class MirrorWindow < Gosu::Window
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}",
                       (@window_width - @width_offsets[1] - @margin), 60, 1, scale_x = @scale_x, scale_y = @scale_y)
 
-      @number_of_weather_data_entries.times do |i| 
-        @font.draw_markup(@weatherdata.temp?(i), 0, i*30, 1, scale_x = @scale_x, scale_y = @scale_y)
+
+    
+
+    @number_of_weather_entries.times do |i| 
+      @font.draw_markup(@weatherdata.temp?(i + 1), 0, 30+i*30, 1, scale_x = @scale_x, scale_y = @scale_y)
+      weather_symbol_path = './weather/' + @weatherdata.symbol?(i) + '.png'
+      Gosu::Image.new(weather_symbol_path).draw(100, 30+i*30, 1, scale_x = 2, scale_y = 2)
       end
     end
 end
