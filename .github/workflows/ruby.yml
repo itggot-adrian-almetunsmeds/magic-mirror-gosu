@@ -11,6 +11,6 @@ jobs:
     - name: Getting files from GitHub
       uses: actions/checkout@v1
     - name: Rubocop Linter
-      uses: andrewmcodes/rubocop-linter-action@master
+      uses: andrewmcodes/rubocop-linter-action@v1.0.6
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
