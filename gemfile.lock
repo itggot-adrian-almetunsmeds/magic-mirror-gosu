@@ -4,6 +4,7 @@ GEM
     connection_pool (2.2.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    event_emitter (0.2.6)
     gosu (0.14.5-x64-mingw32)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -34,6 +35,10 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     webrobots (0.1.2)
+    websocket (1.2.8)
+    websocket-client-simple (0.3.0)
+      event_emitter
+      websocket
 
 PLATFORMS
   x64-mingw32
@@ -42,6 +47,7 @@ DEPENDENCIES
   gosu
   httparty
   mechanize
+  websocket-client-simple
 
 BUNDLED WITH
    2.0.1
