@@ -10,7 +10,14 @@ jobs:
     steps:
     - name: Getting files from GitHub
       uses: actions/checkout@v1
+    - name: installing Gosu dependencies
+      run: |
+        sudo apt-get install build-essential libsdl2-dev libgl1-mesa-dev libopenal-dev \
+                      libsndfile-dev libmpg123-dev libgmp-dev libfontconfig1-dev
+        sudo apt-get install ruby-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
     - name: Rubocop Linter
-      uses: andrewmcodes/rubocop-linter-action@master
+      uses: andrewmcodes/rubocop-linter-action@v1.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
