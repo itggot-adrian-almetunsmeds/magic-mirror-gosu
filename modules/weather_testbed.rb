@@ -3,10 +3,11 @@
 require 'json'
 
 class Weather # rubocop:disable Style/Documentation
-  def initialize
+  def initialize(message)
     # get data
-    rawdata = File.readlines('modules/weather.txt').first
-    @data = JSON.parse(rawdata)
+    # rawdata = File.readlines('modules/weather.txt').first
+
+    @data = JSON.parse(message)
 
     # p @data[0]
   end

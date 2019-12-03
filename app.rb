@@ -30,13 +30,21 @@ class MirrorWindow < Gosu::Window
     @width_offsets << (@font.text_width("#{TimeComponent.new.date.reverse[0]}"\
       " #{TimeComponent.new.date.reverse[1]} #{TimeComponent.new.date.reverse[2]}") * @scale_x)
 
-    @weatherdata = Weather.new
     @number_of_weather_entries = 4
     Websocket.ws_establish
+    
+    @weathermessage = Broadcaster.new
+    # @ws.ws_establish
+
   end
 
   # Handles updating of entities in gosu
-  def update; end
+  def update
+
+    @weathermessage.subscribe(Subscriber.new)
+
+
+  end
 
   # Draws entities in gosu
   def draw # rubocop:disable Metrics/AbcSize
@@ -47,12 +55,16 @@ class MirrorWindow < Gosu::Window
                       (@window_width - @width_offsets[1] - @margin), 60, 1,
                       scale_x = @scale_x, scale_y = @scale_y)
 
-    @number_of_weather_entries.times do |i|
-      @font.draw_markup(@weatherdata.temp?(i + 1), 0, 30 + i * 30, 1,
-                        scale_x = @scale_x, scale_y = @scale_y)
-      weather_symbol_path = './weather/' + @weatherdata.symbol?(i) + '.png'
-      Gosu::Image.new(weather_symbol_path).draw(100, 30 + i * 30, 1, scale_x = 2, scale_y = 2)
-    end
+    # @font.draw_markup(@weatherdata.temp?(0), 0, 0, 0, scale_x = @scale_x*2, scale_y = @scale_y*2)
+
+    # Gosu::Image.new('./weather/' + @weatherdata.symbol?(0) + '.png').draw(100, 0, 1, scale_x = 4, scale_y = 4)
+
+    # @number_of_weather_entries.times do |i|
+    #   @font.draw_markup(@weatherdata.temp?(i + 1), 0, 100 + i * 30, 1,
+    #                     scale_x = @scale_x, scale_y = @scale_y)
+    #   weather_symbol_path = './weather/' + @weatherdata.symbol?(i) + '.png'
+    #   Gosu::Image.new(weather_symbol_path).draw(100, 100 + i * 30, 1, scale_x = 2, scale_y = 2)
+    # end
   end
 end
 
