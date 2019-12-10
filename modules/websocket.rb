@@ -13,11 +13,8 @@ require_relative 'eventbroadcaster.rb'
 class Websocket
   include SuckerPunch::Job
 
-  def initialize
-
-    @eventpublisher = Broadcaster.new
-
-  end
+  eventpublisher = Broadcaster.new
+  def initialize; end
 
   # Tries to establish a ws connection
   #
@@ -34,13 +31,9 @@ class Websocket
 
     ws.on :message do |msg|
       data = JSON.parse(msg.data)
-      # p x
-      if data["channel"] == "weather" 
-        # && data["message"].downcase != "no data"
-        # p data["message"]
-        puts "asda"
-        @eventpublisher.new_weather?(data["message"])
-        
+      if data['channel'] == 'weather'
+        eventpublisher.new_weather?(data['message'])
+        File.write('weather.txt', data['message'])
       end
     end
 
