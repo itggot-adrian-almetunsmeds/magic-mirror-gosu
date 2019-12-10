@@ -12,7 +12,7 @@ class Weather # rubocop:disable Style/Documentation
   def initialize
     # get data
     # rawdata = File.readlines('modules/weather.txt').first
-    message = File.read('weather.txt')
+    message = File.read('modules/weather.txt')
     @data = JSON.parse(message)
 
     # p @data[0]
