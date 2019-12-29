@@ -21,8 +21,6 @@ jobs:
         ruby -v
     - name: Installing Yard and generating docs
       run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
         gem install yard
         yard doc *
     - name: Commit files
